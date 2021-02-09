@@ -1,8 +1,8 @@
 
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../models/NoteModel.dart';
 
-class NoteController extends ChangeNotifier {
+class NoteController with ChangeNotifier {
   List<NoteModel> noteList = [];
 
   void addToNotes(NoteModel note) {

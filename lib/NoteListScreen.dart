@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_example/controllers/NoteController.dart';
+import 'package:provider_example/models/NoteModel.dart';
 
 class NoteList extends StatefulWidget {
   NoteList({Key key, this.title}) : super(key: key);
@@ -19,18 +22,6 @@ class NoteList extends StatefulWidget {
 }
 
 class _NoteListState extends State<NoteList> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,18 +57,21 @@ class _NoteListState extends State<NoteList> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            Expanded(
+                          child: ListView.builder(
+                  itemCount: context.watch<NoteController>().noteList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                  return Column(children: [
+                    Text(context.watch<NoteController>().noteList[index].title),
+                    Text(context.watch<NoteController>().noteList[index].description),
+                  ],);
+                }),
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () => context.read<NoteController>().addToNotes(NoteModel("title", "description")),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider_example/controllers/NoteController.dart';
 import 'NoteListScreen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (_) => NoteController(),
+    )
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -31,4 +37,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
