@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'NoteList.dart';
+import 'NoteListScreen.dart';
 
 void main() {
   runApp(MyApp());
